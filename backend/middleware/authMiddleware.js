@@ -12,11 +12,14 @@ const protect = (req, res, next) => {
 
     const decoded = jwt.verify(token, "secretkey");
 
-    req.user = decoded;
-    next();
+    req.user = {
+      id: decoded.id,
+      role: decoded.role
+    };
 
+    next(); // 🔥 THIS WAS MISSING
   } catch (error) {
-    res.status(401).json({ message: "Invalid token" });
+    return res.status(401).json({ message: "Invalid token" });
   }
 };
 

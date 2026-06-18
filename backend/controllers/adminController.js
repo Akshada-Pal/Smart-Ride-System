@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Driver = require("../models/Driver");
+const Payment = require("../models/Payment");
 
 const getDashboardStats = async (req, res) => {
   try {
@@ -75,9 +76,34 @@ const getSubscriptions = async (req, res) => {
   }
 };
 
+
+const getRevenueStats = async (req, res) => {
+  try {
+    const payments = await Payment.find();
+
+    const totalRevenue = payments.reduce(
+      (sum, payment) => sum + payment.amount,
+      0
+    );
+
+    const totalPayments = payments.length;
+
+    res.json({
+      totalRevenue,
+      totalPayments,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   getDashboardStats,
   getAllUsers,
   getAllDrivers,
   getSubscriptions,
+  getRevenueStats,
 };

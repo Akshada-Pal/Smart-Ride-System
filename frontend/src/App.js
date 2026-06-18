@@ -1,26 +1,77 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./pages/ProtectedRoute";
+import PremiumPage from "./pages/PremiumPage";
+import Success from "./pages/Success";
+import Cancel from "./pages/Cancel";
+import AdminDashboard from "./pages/AdminDashboard";
+import Home from "./pages/Home";
+import Cars from "./pages/Cars";
+import PremiumRoute from "./components/PremiumRoute";
+import AdminRoute from "./components/AdminRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from "./components/Navbar";
+import Contact from "./pages/Contact";
+
 
 function App() {
   return (
     <BrowserRouter>
+
+      <Navbar />
+
       <Routes>
-        <Route path="/" element={<Login />} />
+
+        {/* 🏠 PUBLIC HOME */}
+        <Route path="/" element={<Home />} />
+
+<Route path="/cars" element={<Cars />} />
+
+
+        {/* 🔐 AUTH */}
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected Route */}
+        {/* 🔐 DASHBOARD (PROTECTED) */}
         <Route
-          path="/dashboard"
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
+
+        {/* 💳 PAYMENT */}
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
+
+        {/* 💎 PREMIUM */}
+        <Route
+          path="/premium"
           element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
+            <PremiumRoute>
+      <PremiumPage />
+    </PremiumRoute>
           }
         />
+
+        {/* 👑 ADMIN */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
+
+        <Route path="/contact" element={<Contact />} />
+
       </Routes>
+
     </BrowserRouter>
   );
 }

@@ -1,18 +1,13 @@
 const adminOnly = (req, res, next) => {
-  try {
-    if (req.user.role !== "admin") {
-      return res.status(403).json({
-        message: "Access denied. Admin only.",
-      });
-    }
+  console.log("req.user =", req.user);
 
-    next();
-
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
+  if (req.user.role !== "admin") {
+    return res.status(403).json({
+      message: "Access denied. Admin only.",
     });
   }
+
+  next();
 };
 
 module.exports = adminOnly;
