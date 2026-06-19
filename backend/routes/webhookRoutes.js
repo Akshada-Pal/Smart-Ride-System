@@ -6,7 +6,9 @@ const Subscription = require("../models/Subscription");
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// 🔥 Stripe Webhook Route
+// ==============================
+// STRIPE WEBHOOK
+// ==============================
 router.post(
   "/stripe",
   express.raw({ type: "application/json" }),
@@ -28,33 +30,42 @@ router.post(
     console.log("🔥 Webhook Event:", event.type);
 
     // ==============================
-    // ✅ PAYMENT SUCCESS EVENT
+    // PAYMENT SUCCESS
     // ==============================
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
 
       try {
         const userId = session.metadata.userId;
-        const plan = session.metadata.plan || "basic";
+        const planType = session.metadata.plan;
 
-        // Example: 30 days subscription
+        // 🔥 PLAN BASED EXPIRY
+        let days = 30;
+
+        if (planType === "weekly") days = 7;
+        else if (planType === "monthly") days = 30;
+        else if (planType === "yearly") days = 365;
+
+        const startDate = new Date();
         const expiryDate = new Date();
-        expiryDate.setDate(expiryDate.getDate() + 30);
+        expiryDate.setDate(startDate.getDate() + days);
 
-        // Create or update subscription
         const subscription = await Subscription.findOneAndUpdate(
           { userId },
           {
             userId,
-            plan,
+            planType,
             status: "active",
-            startDate: new Date(),
+            startDate,
             expiryDate,
+            paymentId: session.payment_intent,
+            orderId: session.id,
           },
           { upsert: true, new: true }
         );
 
         console.log("✅ Subscription Activated:", subscription);
+
       } catch (error) {
         console.error("Subscription Error:", error.message);
       }

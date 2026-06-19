@@ -2454,3 +2454,159 @@ textarea {
   color: white;
   font-weight: bold;
 }
+
+
+/* ===== PREMIUM PAGE ===== */
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.container h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #6c5ce7;
+}
+
+/* CARD DESIGN */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  margin: 20px 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* LOCKED TITLE */
+.card h2 {
+  color: #2d3436;
+}
+
+/* SUBSCRIBE BUTTON */
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(108,92,231,0.3);
+}
+
+/* FEATURE LIST */
+.card p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+/* LOCKED BOX */
+.locked-box {
+  background: #ffeaa7;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #2d3436;
+}
+
+/* ===== PREMIUM PAGE MODERN UI ===== */
+
+.premium-page {
+  min-height: 100vh;
+  padding: 100px 20px 40px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  text-align: center;
+}
+
+/* TITLE */
+.premium-title {
+  font-size: 38px;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #a29bfe, #6c5ce7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* CARDS */
+.premium-card {
+  max-width: 650px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: 0.3s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-5px);
+}
+
+/* GLASS EFFECT */
+.glass {
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* DANGER (locked state) */
+.danger {
+  border: 1px solid rgba(255, 0, 0, 0.4);
+}
+
+/* FEATURES */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.feature-list li {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+/* LOCKED FEATURES */
+.feature-list.missing li {
+  color: #ff7675;
+}
+
+/* SUCCESS CARD */
+.highlight {
+  background: linear-gradient(135deg, #00b894, #00cec9);
+  color: white;
+  font-weight: bold;
+}
+
+/* BUTTON */
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}

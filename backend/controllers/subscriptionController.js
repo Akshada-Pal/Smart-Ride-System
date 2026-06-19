@@ -1,47 +1,47 @@
-const User = require("../models/User");
 const Subscription = require("../models/Subscription");
 
-// CREATE / UPDATE SUBSCRIPTION
+// ============================
+// CREATE SUBSCRIPTION (manual plan activation)
+// ============================
 const createSubscription = async (req, res) => {
   try {
     const userId = req.user.id;
-
-    const { plan } = req.body; 
-    // monthly / quarterly / yearly
+    const { plan } = req.body;
 
     let days = 0;
 
     if (plan === "monthly") days = 30;
     else if (plan === "quarterly") days = 90;
     else if (plan === "yearly") days = 365;
+    else {
+      return res.status(400).json({ message: "Invalid plan" });
+    }
 
     const start = new Date();
     const end = new Date();
     end.setDate(start.getDate() + days);
 
-    const user = await User.findByIdAndUpdate(
+    const subscription = await Subscription.create({
       userId,
-      {
-        subscriptionPlan: plan,
-        subscriptionStatus: "active",
-        subscriptionStart: start,
-        subscriptionEnd: end,
-      },
-      { new: true }
-    );
+      planType: plan,
+      status: "active",
+      startDate: start,
+      expiryDate: end,
+    });
 
-    res.json({
-      message: "Subscription activated",
-      user,
+    return res.json({
+      message: "Subscription created",
+      subscription,
     });
 
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
-
-
+// ============================
+// ACTIVATE SUBSCRIPTION (Stripe webhook use)
+// ============================
 const activateSubscription = async (req, res) => {
   try {
     const { userId, planType, paymentId, orderId } = req.body;
@@ -59,17 +59,21 @@ const activateSubscription = async (req, res) => {
     const expiryDate = new Date();
     expiryDate.setDate(startDate.getDate() + days);
 
-    const subscription = await Subscription.create({
-      userId,
-      planType,
-      status: "active",
-      startDate,
-      expiryDate,
-      paymentId,
-      orderId,
-    });
+    const subscription = await Subscription.findOneAndUpdate(
+      { userId },
+      {
+        userId,
+        planType,
+        status: "active",
+        startDate,
+        expiryDate,
+        paymentId,
+        orderId,
+      },
+      { upsert: true, new: true }
+    );
 
-    return res.status(200).json({
+    return res.json({
       message: "Subscription activated successfully",
       subscription,
     });
@@ -82,26 +86,23 @@ const activateSubscription = async (req, res) => {
   }
 };
 
-
+// ============================
+// GET CURRENT USER SUBSCRIPTION
+// ============================
 const getMySubscription = async (req, res) => {
   try {
     const subscription = await Subscription.findOne({
       userId: req.user.id,
+      status: "active",
     }).sort({ createdAt: -1 });
 
-    if (!subscription) {
-      return res.json({
-        subscription: null,
-      });
-    }
-
-    res.json({
-      subscription,
+    return res.json({
+      subscription: subscription || null,
     });
+
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       message: "Server error",
-      error: error.message,
     });
   }
 };

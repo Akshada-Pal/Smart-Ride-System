@@ -4,18 +4,22 @@ const router = express.Router();
 const {
   createSubscription,
   activateSubscription,
-  getMySubscription
+  getMySubscription,
 } = require("../controllers/subscriptionController");
 
 const protect = require("../middleware/authMiddleware");
 
-// create subscription
+// ============================
+// SUBSCRIPTION ROUTES
+// ============================
+
+// Create manual subscription (admin/testing)
 router.post("/create", protect, createSubscription);
 
-// activate subscription
+// Activate subscription (Stripe / payment success)
 router.post("/activate", protect, activateSubscription);
 
-// 🔥 ADD THIS ROUTE
+// Get current user subscription (frontend dashboard)
 router.get("/me", protect, getMySubscription);
 
 module.exports = router;

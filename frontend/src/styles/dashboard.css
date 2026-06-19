@@ -6,7 +6,6 @@
 }
 
 /* HERO */
-
 .dashboard-hero{
   display:flex;
   align-items:center;
@@ -51,7 +50,6 @@
 }
 
 /* STATS */
-
 .dashboard-stats{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -64,13 +62,13 @@
   padding:25px;
   border-radius:20px;
   border:1px solid #222;
-  transition:.4s;
+  transition:.3s;
 }
 
 .stat-card:hover{
-  transform:translateY(-8px);
+  transform:translateY(-6px);
   border-color:#ff8c00;
-  box-shadow:0 20px 50px rgba(255,140,0,.2);
+  box-shadow:0 15px 40px rgba(255,140,0,.2);
 }
 
 .stat-card h3{
@@ -84,7 +82,6 @@
 }
 
 /* COMMON CARD */
-
 .dashboard-card,
 .dashboard-section{
   background:#111;
@@ -101,7 +98,6 @@
 }
 
 /* PROFILE */
-
 .profile-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -122,47 +118,7 @@
   margin-top:8px;
 }
 
-/* FEATURES */
-
-.feature-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-}
-
-.feature-box{
-  padding:18px;
-  border-radius:15px;
-  background:#181818;
-  border:1px solid #333;
-}
-
-.feature-box:hover{
-  border-color:#ff8c00;
-}
-
-/* TIMELINE */
-
-.timeline-item{
-  padding:15px;
-  margin-bottom:10px;
-  border-left:3px solid #ff8c00;
-  background:#181818;
-  border-radius:10px;
-}
-
-/* EMPTY */
-
-.empty-box{
-  background:#181818;
-  padding:25px;
-  border-radius:15px;
-  color:#999;
-  text-align:center;
-}
-
 /* ACTIONS */
-
 .action-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -184,7 +140,6 @@
 }
 
 /* LOGOUT */
-
 .dashboard-logout{
   text-align:center;
   margin-top:30px;
@@ -197,20 +152,109 @@
   padding:14px 40px;
   border-radius:50px;
   cursor:pointer;
+  transition:.3s;
 }
 
 .dashboard-logout button:hover{
   transform:scale(1.05);
 }
 
-/* RESPONSIVE */
+/* =========================
+   RIDES (FIXED FOR DARK THEME)
+   ========================= */
 
+.ride-card {
+  background: #181818;
+  padding: 15px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: 1px solid #2a2a2a;
+  transition: 0.3s;
+}
+
+.ride-card:hover {
+  border-color: #ff8c00;
+  transform: translateY(-2px);
+}
+
+.ride-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  color: #ddd;
+}
+
+.fare {
+  font-weight: bold;
+  color: #ffb347;
+}
+
+/* STATUS */
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: white;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background: orange;
+}
+
+.status.completed {
+  background: green;
+}
+
+.status.cancelled {
+  background: red;
+}
+
+/* EMPTY */
+.empty-box {
+  background:#181818;
+  padding:25px;
+  border-radius:15px;
+  color:#999;
+  text-align:center;
+}
+
+/* ADMIN ACTIONS */
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.admin-actions button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.3s;
+}
+
+.admin-actions button:first-child {
+  background: green;
+  color: white;
+}
+
+.admin-actions button:last-child {
+  background: red;
+  color: white;
+}
+
+.admin-actions button:hover {
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE */
 @media(max-width:900px){
 
   .dashboard-stats,
   .profile-grid,
-  .action-grid,
-  .feature-grid{
+  .action-grid {
     grid-template-columns:1fr;
   }
 

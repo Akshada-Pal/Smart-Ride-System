@@ -12,10 +12,22 @@ const {
 const protect = require("../middleware/authMiddleware");
 const adminOnly = require("../middleware/adminMiddleware");
 
-// 🔥 CREATE STRIPE CHECKOUT SESSION (UPDATED)
+// ===============================
+// STRIPE CHECKOUT SESSION (FIXED)
+// ===============================
 router.post("/create-checkout-session", protect, async (req, res) => {
   try {
     const { plan } = req.body;
+
+    // 🔥 PLAN VALIDATION + PRICING
+    let amount = 0;
+
+    if (plan === "weekly") amount = 10000;      // ₹100
+    else if (plan === "monthly") amount = 30000; // ₹300
+    else if (plan === "yearly") amount = 100000; // ₹1000
+    else {
+      return res.status(400).json({ message: "Invalid plan type" });
+    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -24,16 +36,16 @@ router.post("/create-checkout-session", protect, async (req, res) => {
           price_data: {
             currency: "inr",
             product_data: {
-              name: `${plan} Subscription`,
+              name: `${plan.toUpperCase()} Subscription`,
             },
-            unit_amount: plan === "premium" ? 50000 : 20000,
+            unit_amount: amount,
           },
           quantity: 1,
         },
       ],
       mode: "payment",
 
-      // 🔥 VERY IMPORTANT FOR WEBHOOK
+      // 🔥 IMPORTANT FOR WEBHOOK
       metadata: {
         userId: req.user.id,
         plan: plan,
@@ -43,18 +55,20 @@ router.post("/create-checkout-session", protect, async (req, res) => {
       cancel_url: "http://localhost:3000/cancel",
     });
 
-    res.json({ url: session.url });
+    return res.json({ url: session.url });
+
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       message: "Payment session failed",
       error: error.message,
     });
   }
 });
 
-// Keep your existing routes
+// ===============================
+// OTHER ROUTES
+// ===============================
 router.get("/history", protect, getPaymentHistory);
-
 router.get("/revenue", protect, adminOnly, getRevenueStats);
 
 module.exports = router;

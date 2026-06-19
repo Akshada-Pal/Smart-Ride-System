@@ -31,51 +31,54 @@ const Premium = () => {
   };
 
   return (
-    <div className="container">
+  <div className="premium-page">
 
-      <h1>💎 Premium Zone</h1>
+    <h1 className="premium-title">💎 Premium Zone</h1>
 
-      {loading ? (
-        <div className="card">
-          <p>Checking access...</p>
+    {loading ? (
+      <div className="premium-card">
+        <p>Checking access...</p>
+      </div>
+    ) : isPremium ? (
+      <>
+        <div className="premium-card glass">
+          <h2>🚀 Premium Features Unlocked</h2>
+
+          <ul className="feature-list">
+            <li>✔ Priority Ride Booking</li>
+            <li>✔ Discounted Rides</li>
+            <li>✔ VIP Customer Support</li>
+            <li>✔ Faster Driver Matching</li>
+            <li>✔ Exclusive Offers</li>
+          </ul>
         </div>
-      ) : isPremium ? (
-        <>
-          {/* PREMIUM CONTENT */}
-          <div className="card">
-            <h2>🚀 Premium Features Unlocked</h2>
-            <p>✔ Priority Ride Booking</p>
-            <p>✔ Discounted Rides</p>
-            <p>✔ VIP Customer Support</p>
-            <p>✔ Faster Driver Matching</p>
-            <p>✔ Exclusive Offers</p>
-          </div>
 
-          <div className="card" style={{ marginTop: "20px" }}>
-            <h3>🔥 Enjoy your premium experience</h3>
-          </div>
-        </>
-      ) : (
-        <>
-          {/* LOCKED CONTENT */}
-          <div className="card">
-            <h2>🔒 Premium Access Locked</h2>
-            <p>You need a subscription to access premium features.</p>
+        <div className="premium-card highlight">
+          <h3>🔥 Enjoy your premium experience</h3>
+        </div>
+      </>
+    ) : (
+      <>
+        <div className="premium-card glass danger">
+          <h2>🔒 Premium Access Locked</h2>
+          <p>You need a subscription to access premium features.</p>
 
-            <SubscribeButton />
-          </div>
+          <SubscribeButton />
+        </div>
 
-          <div className="card" style={{ marginTop: "20px" }}>
-            <h3>What you are missing:</h3>
-            <p>❌ Priority Booking</p>
-            <p>❌ Discount Rides</p>
-            <p>❌ VIP Support</p>
-          </div>
-        </>
-      )}
+        <div className="premium-card">
+          <h3>🚀 Unlock Premium Features</h3>
 
-    </div>
-  );
+          <ul className="feature-list missing">
+            <li>❌ Priority Booking</li>
+            <li>❌ Discount Rides</li>
+            <li>❌ VIP Support</li>
+          </ul>
+        </div>
+      </>
+    )}
+  </div>
+);
 };
 
 export default Premium;

@@ -1,32 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { getMySubscription } from "../api/subscriptionApi";
+import React from "react";
 
-const SubscriptionStatus = () => {
-  const [subscription, setSubscription] = useState(null);
-  const [loading, setLoading] = useState(true);
+const SubscriptionStatus = ({ subscription, loading }) => {
+  if (loading) return <p>Checking subscription...</p>;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getMySubscription();
-        setSubscription(data.subscription);
-      } catch (error) {
-        console.error("Error fetching subscription:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) return <p>Loading subscription...</p>;
+  const isActive = subscription?.status === "active";
 
   return (
-    <div>
-      {subscription && subscription.status === "active" ? (
+    <div className="subscription-status">
+      {isActive ? (
         <h3 style={{ color: "green" }}>
-          ✅ Premium Active (Expires: {subscription.expiryDate})
+          ✅ Premium Active (Expires:{" "}
+          {subscription?.expiryDate
+            ? new Date(subscription.expiryDate).toLocaleDateString()
+            : "N/A"}
+          )
         </h3>
       ) : (
         <h3 style={{ color: "red" }}>

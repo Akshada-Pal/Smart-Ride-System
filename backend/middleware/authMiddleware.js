@@ -1,23 +1,23 @@
 const jwt = require("jsonwebtoken");
 
 const protect = (req, res, next) => {
-  let token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ message: "No token found" });
-  }
-
   try {
-    token = token.split(" ")[1];
+    const authHeader = req.headers.authorization;
 
-    const decoded = jwt.verify(token, "secretkey");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "No token found" });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || "secretkey");
 
     req.user = {
       id: decoded.id,
-      role: decoded.role
+      role: decoded.role,
     };
 
-    next(); // 🔥 THIS WAS MISSING
+    next();
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });
   }

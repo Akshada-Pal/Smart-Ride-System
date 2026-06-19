@@ -8,20 +8,25 @@ const SubscribeButton = () => {
     try {
       setLoading(true);
 
-      const data = await createCheckoutSession("premium");
+      const data = await createCheckoutSession("monthly");
 
-      // 🔥 Redirect to Stripe Checkout
+      if (!data?.url) {
+        throw new Error("Checkout URL not found");
+      }
+
+      // Stripe redirect
       window.location.href = data.url;
+
     } catch (error) {
       console.error("Payment error:", error);
-      alert("Payment failed");
+      alert("Payment failed. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <button onClick={handleSubscribe} disabled={loading}>
+    <button className="subscribe-btn" onClick={handleSubscribe} disabled={loading}>
       {loading ? "Processing..." : "Subscribe Now 🚀"}
     </button>
   );
