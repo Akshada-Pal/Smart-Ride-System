@@ -2,11 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
-// Load env
 dotenv.config();
 console.log("Stripe Key Length:", process.env.STRIPE_SECRET_KEY?.length);
 
-// DB
 const connectDB = require("./config/db");
 
 // Routes
@@ -20,23 +18,38 @@ const premiumRoutes = require("./routes/premiumRoutes");
 const rideRoutes = require("./routes/rideRoutes");
 const webhookRoutes = require("./routes/webhookRoutes");
 
-// Cron job
-const runSubscriptionExpiryJob = require("./cron/subscriptionCron");
-
-// Connect DB
+// DB connect
 connectDB();
 
 const app = express();
 
-// 🔥 IMPORTANT: Stripe webhook MUST come before JSON parser
+
+// 🔥 STEP 1: Webhook MUST stay before JSON parser
 app.use("/api/webhook", webhookRoutes);
 
+
+// 🔥 STEP 2: FIXED CORS (IMPORTANT FOR DEPLOYMENT)
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "https://your-frontend.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
+
+
 // Middleware
-app.use(cors());
 app.use(express.json());
 
+
 // Cron job
+const runSubscriptionExpiryJob = require("./cron/subscriptionCron");
 runSubscriptionExpiryJob();
+
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -46,16 +59,17 @@ app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api", premiumRoutes);
-app.use("/api/ride", require("./routes/rideRoutes"));
+app.use("/api/ride", rideRoutes);
+
 
 // Home route
 app.get("/", (req, res) => {
   res.send("🚗 Smart Ride API Running...");
 });
 
+
 // Server start
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
