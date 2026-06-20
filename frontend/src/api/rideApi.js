@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../utils/auth";
 
-const API = "http://localhost:5000/api/ride";
+const API = "https://smart-ride-backend-j8xk.onrender.com/api/ride";
 
 // 🚗 BOOK RIDE (FIXED)
 export const bookRide = async (data) => {

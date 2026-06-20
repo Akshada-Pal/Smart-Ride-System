@@ -14,7 +14,7 @@ const AdminDashboard = () => {
   const fetchStats = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/admin/stats",
+        "https://smart-ride-backend-j8xk.onrender.com/api/admin/stats",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -29,7 +29,7 @@ const AdminDashboard = () => {
   const fetchUsers = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/admin/users",
+        "https://smart-ride-backend-j8xk.onrender.com/api/admin/users",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
   const fetchSubscriptions = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/admin/subscriptions",
+        "https://smart-ride-backend-j8xk.onrender.com/api/admin/subscriptions",
         {
           headers: { Authorization: `Bearer ${token}` },
         }

@@ -15,7 +15,7 @@ setLoading(true);
   const token = getToken();
 
   const res = await axios.get(
-    "http://localhost:5000/api/subscription/me",
+    "https://smart-ride-backend-j8xk.onrender.com/api/subscription/me",
     {
       headers: {
         Authorization: `Bearer ${token}`,

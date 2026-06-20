@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/subscription";
+const API = "https://smart-ride-backend-j8xk.onrender.com/api/subscription";
 
 export const getMySubscription = async () => {
   const token = localStorage.getItem("token");

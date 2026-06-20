@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/payments";
+const API = "https://smart-ride-backend-j8xk.onrender.com/api/payments";
 
 export const createCheckoutSession = async (plan) => {
   try {

@@ -14,7 +14,7 @@ const Success = () => {
         if (token) {
           // 🔥 THIS IS THE IMPORTANT PART (CREATE SUBSCRIPTION)
           await axios.post(
-            "http://localhost:5000/api/subscription/create",
+            "https://smart-ride-backend-j8xk.onrender.com/api/subscription/create",
             {
               plan: "monthly",
             },

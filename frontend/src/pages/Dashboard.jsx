@@ -101,7 +101,7 @@ const Dashboard = () => {
   const updateRideStatus = async (id, status) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/ride/status/${id}`,
+        `https://smart-ride-backend-j8xk.onrender.com/api/ride/status/${id}`,
         { status },
         {
           headers: { Authorization: `Bearer ${getToken()}` },
@@ -130,7 +130,7 @@ const Dashboard = () => {
       if (!token) return setSubscription(null);
 
       const res = await axios.get(
-        "http://localhost:5000/api/subscription/me",
+        "https://smart-ride-backend-j8xk.onrender.com/api/subscription/me",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -145,7 +145,7 @@ const Dashboard = () => {
 const handleCancelSubscription = async () => {
   try {
     await axios.put(
-      "http://localhost:5000/api/subscription/cancel",
+      "https://smart-ride-backend-j8xk.onrender.com/api/subscription/cancel",
       {},
       {
         headers: {
@@ -172,7 +172,7 @@ const handleCancelSubscription = async () => {
       if (!token) return setStats({});
 
       const res = await axios.get(
-        "http://localhost:5000/api/user/stats",
+        "https://smart-ride-backend-j8xk.onrender.com/api/user/stats",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -267,7 +267,7 @@ const handleCancelSubscription = async () => {
     onClick={async () => {
       try {
         await axios.post(
-          "http://localhost:5000/api/subscription/create",
+          "https://smart-ride-backend-j8xk.onrender.com/api/subscription/create",
           {
             plan: "monthly",
           },
