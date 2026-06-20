@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const Stripe = require("stripe");
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+const Stripe = require("stripe");
+console.log("🔥 STRIPE KEY:", process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const {
   getPaymentHistory,
   getRevenueStats,
@@ -58,11 +59,14 @@ router.post("/create-checkout-session", protect, async (req, res) => {
     return res.json({ url: session.url });
 
   } catch (error) {
-    return res.status(500).json({
-      message: "Payment session failed",
-      error: error.message,
-    });
-  }
+  console.log("🔥 STRIPE ERROR FULL:", error);
+
+  return res.status(500).json({
+    message: "Payment session failed",
+    error: error.message,
+    stack: error.stack,
+  });
+}
 });
 
 // ===============================

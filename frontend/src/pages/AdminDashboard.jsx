@@ -1,131 +1,248 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "../styles/adminDashboard.css";
+
 
 const AdminDashboard = () => {
-  const [stats, setStats] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [subscriptions, setSubscriptions] = useState([]);
+const [stats, setStats] = useState(null);
+const [users, setUsers] = useState([]);
+const [subscriptions, setSubscriptions] = useState([]);
 
-  const token = localStorage.getItem("token");
+const token = localStorage.getItem("token");
 
-  useEffect(() => {
+// eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(() => {
   fetchStats();
   fetchUsers();
   fetchSubscriptions();
-// eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 
-  // 📊 Stats
-  const fetchStats = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/admin/stats", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setStats(res.data.stats);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+const fetchStats = async () => {
+try {
+const res = await axios.get(
+"http://localhost:5000/api/admin/stats",
+{
+headers: {
+Authorization: `Bearer ${token}`,
+},
+}
+);
 
-  // 👥 Users
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/admin/users", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUsers(res.data.users);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
-  // 💳 Subscriptions
-  const fetchSubscriptions = async () => {
-    try {
-      const res = await axios.get(
-        "http://localhost:5000/api/admin/subscriptions",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setSubscriptions(res.data.subscriptions);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  setStats(res.data?.stats || null);
+} catch (err) {
+  console.log("Stats Error:", err);
+}
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>🔥 Admin Dashboard</h1>
+};
 
-      {/* 📊 STATS */}
-      {stats && (
-        <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
-          <div style={cardStyle}>👥 Users: {stats.totalUsers}</div>
-          <div style={cardStyle}>
-            ✅ Active: {stats.activeSubscriptions}
-          </div>
-          <div style={cardStyle}>
-            ⛔ Expired: {stats.expiredSubscriptions}
-          </div>
-        </div>
-      )}
+const fetchUsers = async () => {
+try {
+const res = await axios.get(
+"http://localhost:5000/api/admin/users",
+{
+headers: {
+Authorization: `Bearer ${token}`,
+},
+}
+);
 
-      {/* 👥 USERS TABLE */}
-      <h2 style={{ marginTop: "30px" }}>Users</h2>
-      <table border="1" width="100%">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((u) => (
+
+  setUsers(res.data?.users || []);
+} catch (err) {
+  console.log("Users Error:", err);
+  setUsers([]);
+}
+
+
+};
+
+const fetchSubscriptions = async () => {
+try {
+const res = await axios.get(
+"http://localhost:5000/api/admin/subscriptions",
+{
+headers: {
+Authorization: `Bearer ${token}`,
+},
+}
+);
+
+
+  setSubscriptions(res.data?.subscriptions || []);
+} catch (err) {
+  console.log("Subscriptions Error:", err);
+  setSubscriptions([]);
+}
+
+
+};
+
+return (
+
+  <div className="admin-page">
+
+```
+<div className="admin-hero">
+  <h1 className="admin-title">
+    👑 Smart Ride Admin Control Center
+  </h1>
+
+  <p className="admin-subtitle">
+    Manage users, subscriptions and monitor platform activity.
+  </p>
+</div>
+
+{stats && (
+  <div className="stats-grid">
+
+    <div className="stat-card users-card">
+      <div className="stat-icon">👥</div>
+      <h3>Total Users</h3>
+      <h2>{stats.totalUsers || 0}</h2>
+    </div>
+
+    <div className="stat-card active-card">
+      <div className="stat-icon">✅</div>
+      <h3>Active Plans</h3>
+      <h2>{stats.activeSubscriptions || 0}</h2>
+    </div>
+
+    <div className="stat-card expired-card">
+      <div className="stat-icon">⛔</div>
+      <h3>Expired Plans</h3>
+      <h2>{stats.expiredSubscriptions || 0}</h2>
+    </div>
+
+  </div>
+)}
+
+{/* USERS SECTION */}
+
+<div className="admin-section">
+
+  <div className="section-header">
+    <h2>👥 Registered Users</h2>
+  </div>
+
+  <div className="table-wrapper">
+
+    <table className="admin-table">
+
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {users.length > 0 ? (
+          users.map((u) => (
             <tr key={u._id}>
               <td>{u.name}</td>
               <td>{u.email}</td>
-              <td>{u.role}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* 💳 SUBSCRIPTIONS TABLE */}
-      <h2 style={{ marginTop: "30px" }}>Subscriptions</h2>
-      <table border="1" width="100%">
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>Plan</th>
-            <th>Status</th>
-            <th>Expiry</th>
-          </tr>
-        </thead>
-        <tbody>
-          {subscriptions.map((s) => (
-            <tr key={s._id}>
-              <td>{s.userId?.name || s.userId}</td>
-              <td>{s.plan}</td>
-              <td>{s.status}</td>
               <td>
-                {new Date(s.expiryDate).toLocaleDateString()}
+                <span
+                  className={
+                    u.role === "admin"
+                      ? "role-admin"
+                      : "role-user"
+                  }
+                >
+                  {u.role}
+                </span>
               </td>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+          ))
+        ) : (
+          <tr>
+            <td colSpan="3" className="empty-row">
+              No users found
+            </td>
+          </tr>
+        )}
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+{/* SUBSCRIPTIONS SECTION */}
+
+<div className="admin-section">
+
+  <div className="section-header">
+    <h2>💳 Subscription Management</h2>
+  </div>
+
+  <div className="table-wrapper">
+
+    <table className="admin-table">
+
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Plan</th>
+          <th>Status</th>
+          <th>Expiry</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {subscriptions.length > 0 ? (
+          subscriptions.map((s) => (
+            <tr key={s._id}>
+              <td>{s.userId?.name || "Unknown User"}</td>
+
+              <td>{s.planType}</td>
+
+              <td>
+                <span className={`status-${s.status}`}>
+                  {s.status}
+                </span>
+              </td>
+
+              <td>
+                {s.expiryDate
+                  ? new Date(
+                      s.expiryDate
+                    ).toLocaleDateString()
+                  : "N/A"}
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="4" className="empty-row">
+              No subscriptions found
+            </td>
+          </tr>
+        )}
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+```
+
+  </div>
+);
 };
 
 const cardStyle = {
-  padding: "15px",
-  background: "#f2f2f2",
-  borderRadius: "8px",
-  minWidth: "150px",
-  textAlign: "center",
+padding: "15px",
+background: "#f2f2f2",
+borderRadius: "8px",
+minWidth: "150px",
+textAlign: "center",
 };
 
 export default AdminDashboard;
+
+

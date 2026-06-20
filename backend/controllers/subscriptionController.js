@@ -11,7 +11,7 @@ const createSubscription = async (req, res) => {
     let days = 0;
 
     if (plan === "monthly") days = 30;
-    else if (plan === "quarterly") days = 90;
+  else if (plan === "weekly") days = 7;
     else if (plan === "yearly") days = 365;
     else {
       return res.status(400).json({ message: "Invalid plan" });
@@ -90,25 +90,66 @@ const activateSubscription = async (req, res) => {
 // GET CURRENT USER SUBSCRIPTION
 // ============================
 const getMySubscription = async (req, res) => {
-  try {
-    const subscription = await Subscription.findOne({
-      userId: req.user.id,
-      status: "active",
-    }).sort({ createdAt: -1 });
+try {
+const subscription = await Subscription.findOne({
+userId: req.user.id,
+}).sort({ createdAt: -1 });
 
-    return res.json({
-      subscription: subscription || null,
-    });
+if (!subscription || subscription.status !== "active") {
+  return res.json({
+    subscription: null,
+  });
+}
 
-  } catch (error) {
-    return res.status(500).json({
-      message: "Server error",
-    });
-  }
+return res.json({
+  subscription,
+});
+
+} catch (error) {
+return res.status(500).json({
+message: "Server error",
+});
+}
 };
+
+
+
+const cancelSubscription = async (req, res) => {
+try {
+const subscription = await Subscription.findOne({
+userId: req.user.id,
+status: "active",
+}).sort({ createdAt: -1 });
+
+
+if (!subscription) {
+  return res.status(404).json({
+    message: "No active subscription found",
+  });
+}
+
+subscription.status = "cancelled";
+
+await subscription.save();
+
+return res.json({
+  message: "Subscription cancelled successfully",
+  subscription,
+});
+
+
+} catch (error) {
+return res.status(500).json({
+message: error.message,
+});
+}
+};
+
+
 
 module.exports = {
   createSubscription,
   activateSubscription,
   getMySubscription,
+  cancelSubscription,
 };

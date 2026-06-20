@@ -3,11 +3,11 @@ import { getToken } from "../utils/auth";
 
 const API = "http://localhost:5000/api/ride";
 
-// 🚗 BOOK RIDE
+// 🚗 BOOK RIDE (FIXED)
 export const bookRide = async (data) => {
   const token = getToken();
 
-  const res = await axios.post(`${API}/book`, data, {
+  const res = await axios.post(API, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

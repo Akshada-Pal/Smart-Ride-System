@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 
 // Load env
 dotenv.config();
+console.log("Stripe Key Length:", process.env.STRIPE_SECRET_KEY?.length);
 
 // DB
 const connectDB = require("./config/db");
@@ -45,7 +46,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api", premiumRoutes);
-app.use("/api/ride", rideRoutes);
+app.use("/api/ride", require("./routes/rideRoutes"));
 
 // Home route
 app.get("/", (req, res) => {

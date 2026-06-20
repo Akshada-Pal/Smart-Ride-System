@@ -4,79 +4,133 @@ import { getToken } from "../utils/auth";
 import SubscribeButton from "../components/SubscribeButton";
 
 const Premium = () => {
-  const [isPremium, setIsPremium] = useState(false);
-  const [loading, setLoading] = useState(true);
+const [isPremium, setIsPremium] = useState(false);
+const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    checkSubscription();
-  }, []);
+const checkSubscription = async () => {
+try {
+setLoading(true);
 
-  const checkSubscription = async () => {
-    try {
-      const token = getToken();
 
-      const res = await axios.get(
-        "http://localhost:5000/api/subscription/me",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+  const token = getToken();
 
-      setIsPremium(res.data.subscription?.status === "active");
-    } catch (err) {
-      setIsPremium(false);
-    } finally {
-      setLoading(false);
+  const res = await axios.get(
+    "http://localhost:5000/api/subscription/me",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
-  };
+  );
 
-  return (
+  const subscription = res.data.subscription;
+
+  setIsPremium(subscription?.status === "active");
+} catch (error) {
+  setIsPremium(false);
+} finally {
+  setLoading(false);
+}
+
+
+};
+
+useEffect(() => {
+checkSubscription();
+
+const handleFocus = () => {
+  checkSubscription();
+};
+
+window.addEventListener("focus", handleFocus);
+
+return () => {
+  window.removeEventListener("focus", handleFocus);
+};
+
+
+}, []);
+
+return (
   <div className="premium-page">
 
-    <h1 className="premium-title">💎 Premium Zone</h1>
+    <div className="premium-overlay"></div>
 
-    {loading ? (
-      <div className="premium-card">
-        <p>Checking access...</p>
-      </div>
-    ) : isPremium ? (
-      <>
-        <div className="premium-card glass">
-          <h2>🚀 Premium Features Unlocked</h2>
+    <div className="premium-content">
 
-          <ul className="feature-list">
-            <li>✔ Priority Ride Booking</li>
-            <li>✔ Discounted Rides</li>
-            <li>✔ VIP Customer Support</li>
-            <li>✔ Faster Driver Matching</li>
-            <li>✔ Exclusive Offers</li>
-          </ul>
-        </div>
+      <h1 className="premium-title">
+        💎 Premium Membership
+      </h1>
 
-        <div className="premium-card highlight">
-          <h3>🔥 Enjoy your premium experience</h3>
-        </div>
-      </>
-    ) : (
-      <>
-        <div className="premium-card glass danger">
-          <h2>🔒 Premium Access Locked</h2>
-          <p>You need a subscription to access premium features.</p>
+<div className="premium-header">
+  <span className="premium-badge"><h1>Drive Beyond Limits</h1></span>
+  <p>
+    Unlock exclusive ride benefits, priority service,
+    and premium travel experiences.
+  </p>
+</div>
 
-          <SubscribeButton />
-        </div>
-
+      {loading ? (
         <div className="premium-card">
-          <h3>🚀 Unlock Premium Features</h3>
-
-          <ul className="feature-list missing">
-            <li>❌ Priority Booking</li>
-            <li>❌ Discount Rides</li>
-            <li>❌ VIP Support</li>
-          </ul>
+          <p>Checking access...</p>
         </div>
-      </>
-    )}
+      ) : isPremium ? (
+        <>
+          <div className="premium-card glass">
+
+            <h2>🚀 Premium Features Unlocked</h2>
+
+            <ul className="feature-list">
+              <li>⚡ Priority Ride Booking</li>
+              <li>💸 Discounted Rides</li>
+              <li>👑 VIP Customer Support</li>
+              <li>🚘 Faster Driver Matching</li>
+              <li>🎁 Exclusive Offers</li>
+            </ul>
+
+          </div>
+
+          <div className="premium-card premium-highlight">
+            <h3>🔥 Enjoy Your Premium Experience</h3>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="premium-card glass danger">
+
+            <h2>🔒 Premium Access Locked</h2>
+
+            <p>
+              Upgrade today and unlock exclusive benefits.
+            </p>
+
+            <SubscribeButton />
+
+          </div>
+
+          <div className="premium-card">
+
+           <h3>✨ Premium Features Waiting For You</h3>
+
+<ul className="feature-list missing">
+  <li>🚖 Priority Ride Matching</li>
+  <li>💸 Members-Only Ride Discounts</li>
+  <li>🎯 Faster Driver Allocation</li>
+  <li>🎁 Exclusive Premium Rewards</li>
+  <li>⚡ Instant Booking Confirmation</li>
+  <li>👑 VIP Customer Support</li>
+</ul>
+
+<p className="premium-note">
+  Upgrade to Premium and unlock a faster,
+  smarter and more comfortable ride experience.
+</p>
+
+          </div>
+        </>
+      )}
+
+    </div>
   </div>
 );
 };

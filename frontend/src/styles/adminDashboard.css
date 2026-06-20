@@ -1,0 +1,176 @@
+
+/* =========================
+   ADMIN PAGE
+========================= */
+
+.admin-page {
+  min-height: 100vh;
+  padding: 110px 40px 40px;
+  background: linear-gradient(
+      rgba(10, 10, 10, 0.92),
+      rgba(10, 10, 10, 0.95)
+    ),
+    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.admin-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.admin-title span {
+  color: #facc15;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(250,204,21,0.25);
+}
+
+.stat-card h2 {
+  font-size: 2rem;
+  margin-top: 10px;
+  color: #facc15;
+}
+
+/* =========================
+   SECTION TITLES
+========================= */
+
+.admin-section-title {
+  margin: 40px 0 20px;
+  font-size: 1.7rem;
+  color: #facc15;
+  font-weight: 700;
+}
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 20px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.admin-table th {
+  background: rgba(250,204,21,0.15);
+  color: #facc15;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 18px;
+  text-align: left;
+}
+
+.admin-table td {
+  padding: 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.admin-table tr {
+  transition: 0.3s;
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.admin-table td {
+  color: #e5e7eb;
+}
+
+/* =========================
+   STATUS BADGES
+========================= */
+
+.status-active {
+  color: #22c55e;
+  font-weight: 700;
+}
+
+.status-cancelled {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.status-expired {
+  color: #f97316;
+  font-weight: 700;
+}
+
+/* =========================
+   EMPTY DATA
+========================= */
+
+.no-data {
+  text-align: center;
+  padding: 30px;
+  color: #9ca3af;
+  font-size: 1rem;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 100px 20px 20px;
+  }
+
+  .admin-title {
+    font-size: 2rem;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+

@@ -21,7 +21,10 @@ const Dashboard = () => {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
 
-  const isPremium = subscription?.status === "active";
+  const isPremium =
+  subscription &&
+  subscription.status === "active";
+
 
   // =========================
   // 🔄 LOAD DASHBOARD
@@ -115,6 +118,9 @@ const Dashboard = () => {
     }
   };
 
+
+
+
   // =========================
   // 🔐 SUBSCRIPTION
   // =========================
@@ -135,6 +141,27 @@ const Dashboard = () => {
       setSubscription(null);
     }
   };
+
+const handleCancelSubscription = async () => {
+  try {
+    await axios.put(
+      "http://localhost:5000/api/subscription/cancel",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }
+    );
+
+    alert("Subscription cancelled successfully");
+
+    await checkSubscription();
+  } catch (error) {
+    console.log(error);
+    alert("Failed to cancel subscription");
+  }
+};
 
   // =========================
   // 📊 STATS
@@ -222,17 +249,71 @@ const Dashboard = () => {
         </div>
       </div>
 
+  
+
       {/* SUBSCRIPTION */}
-      <div className="dashboard-card">
-        <h2>💳 My Subscription</h2>
+<div className="dashboard-card">
+  <h2>💳 My Subscription</h2>
 
-        <SubscriptionStatus
-          subscription={subscription}
-          loading={loading}
-        />
+  <SubscriptionStatus
+    subscription={subscription}
+    loading={loading}
+  />
 
-        <SubscribeButton />
-      </div>
+  {!isPremium && <SubscribeButton />}
+
+  {/* TEST BUTTON */}
+  <button
+    onClick={async () => {
+      try {
+        await axios.post(
+          "http://localhost:5000/api/subscription/create",
+          {
+            plan: "monthly",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+            },
+          }
+        );
+
+        alert("Subscription Activated");
+        checkSubscription();
+      } catch (error) {
+        console.log(error);
+        alert("Activation Failed");
+      }
+    }}
+    style={{
+      marginTop: "10px",
+      padding: "10px 20px",
+      borderRadius: "8px",
+      border: "none",
+      cursor: "pointer",
+    }}
+  >
+    🧪 Test Activate Subscription
+  </button>
+
+  {isPremium && (
+    <button
+      onClick={handleCancelSubscription}
+      style={{
+        marginTop: "15px",
+        padding: "12px 25px",
+        background: "#ef4444",
+        color: "#fff",
+        border: "none",
+        borderRadius: "10px",
+        cursor: "pointer",
+        fontWeight: "600",
+      }}
+    >
+      ❌ Cancel Subscription
+    </button>
+  )}
+</div>
 
       {/* QUICK ACTIONS */}
       <div className="dashboard-card">
@@ -255,30 +336,58 @@ const Dashboard = () => {
 
       {/* RIDE FORM */}
       {showRideForm && (
-        <div className="dashboard-card">
-          <h2>Book Ride</h2>
+  <div className="ride-modal">
 
-          <input
-            placeholder="Pickup Location"
-            value={pickup}
-            onChange={(e) => setPickup(e.target.value)}
-          />
+    <div className="ride-modal-box">
 
-          <input
-            placeholder="Destination"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-          />
+      <h2>🚘 Book a Ride</h2>
+      <p className="ride-subtext">
+        Enter pickup and destination to continue
+      </p>
 
-          <button onClick={handleBookRide} disabled={booking}>
-            {booking ? "Booking..." : "Confirm Ride"}
-          </button>
+      {/* INPUTS */}
+      <div className="ride-inputs">
 
-          <button onClick={() => setShowRideForm(false)}>
-            Cancel
-          </button>
-        </div>
-      )}
+        <input
+          type="text"
+          placeholder="📍 Pickup Location"
+          value={pickup}
+          onChange={(e) => setPickup(e.target.value)}
+        />
+
+        <input
+          type="text"
+          placeholder="📍 Destination"
+          value={destination}
+          onChange={(e) => setDestination(e.target.value)}
+        />
+
+      </div>
+
+      {/* BUTTONS */}
+      <div className="ride-actions">
+
+        <button
+          className="confirm-btn"
+          onClick={handleBookRide}
+          disabled={booking}
+        >
+          {booking ? "Booking..." : "Confirm Ride 🚀"}
+        </button>
+
+        <button
+          className="cancel-btn"
+          onClick={() => setShowRideForm(false)}
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
 
       {/* MY RIDES */}
       <div className="dashboard-card">

@@ -5,6 +5,7 @@ const {
   createSubscription,
   activateSubscription,
   getMySubscription,
+  cancelSubscription,
 } = require("../controllers/subscriptionController");
 
 const protect = require("../middleware/authMiddleware");
@@ -21,5 +22,7 @@ router.post("/activate", protect, activateSubscription);
 
 // Get current user subscription (frontend dashboard)
 router.get("/me", protect, getMySubscription);
+
+router.put("/cancel", protect, cancelSubscription);
 
 module.exports = router;

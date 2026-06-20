@@ -7,26 +7,32 @@ const Success = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const refreshSubscription = async () => {
+    const activateSubscription = async () => {
       try {
         const token = getToken();
 
         if (token) {
-          // 🔥 force backend refresh (reads latest webhook-updated data)
-          await axios.get("http://localhost:5000/api/subscription/me", {
-            headers: {
-              Authorization: `Bearer ${token}`,
+          // 🔥 THIS IS THE IMPORTANT PART (CREATE SUBSCRIPTION)
+          await axios.post(
+            "http://localhost:5000/api/subscription/create",
+            {
+              plan: "monthly",
             },
-          });
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
         }
 
-        // give backend time to process webhook if delayed
+        // wait and redirect
         setTimeout(() => {
           navigate("/dashboard");
         }, 2000);
 
       } catch (err) {
-        console.log("Success page error:", err);
+        console.log("Subscription activation error:", err);
 
         setTimeout(() => {
           navigate("/dashboard");
@@ -34,31 +40,25 @@ const Success = () => {
       }
     };
 
-    refreshSubscription();
+    activateSubscription();
   }, [navigate]);
 
   return (
     <div className="auth-container">
       <div className="auth-card">
-
         <h1 style={{ color: "#16a34a" }}>
           🎉 Payment Successful!
         </h1>
 
         <p style={{ color: "#555" }}>
-          Your premium subscription is being activated...
+          Activating your premium subscription...
         </p>
 
         <div style={{ marginTop: "20px" }}>
-          <p>✔ Payment verified</p>
-          <p>✔ Subscription updating</p>
+          <p>✔ Payment confirmed</p>
+          <p>✔ Creating subscription</p>
           <p>✔ Redirecting to dashboard</p>
         </div>
-
-        <p style={{ marginTop: "20px", fontSize: "13px", color: "gray" }}>
-          Please wait a moment...
-        </p>
-
       </div>
     </div>
   );

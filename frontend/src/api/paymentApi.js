@@ -6,9 +6,7 @@ export const createCheckoutSession = async (plan) => {
   try {
     const token = localStorage.getItem("token");
 
-    if (!token) {
-      throw new Error("No auth token found");
-    }
+    console.log("PLAN SENT:", plan);
 
     const res = await axios.post(
       `${API}/create-checkout-session`,
@@ -20,9 +18,12 @@ export const createCheckoutSession = async (plan) => {
       }
     );
 
+    console.log("SUCCESS RESPONSE:", res.data);
+
     return res.data;
   } catch (error) {
-    console.error("Checkout session error:", error);
+    console.log("❌ FULL ERROR:", error.response?.data || error.message);
+    alert(error.response?.data?.message || "Payment failed");
     throw error;
   }
 };

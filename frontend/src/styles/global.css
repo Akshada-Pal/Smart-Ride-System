@@ -2610,3 +2610,264 @@ button {
 button:hover {
   transform: scale(1.05);
 }
+
+/* =========================
+   PREMIUM PAGE
+========================= */
+
+.premium-page {
+  min-height: 100vh;
+  padding-top: 110px;
+  position: relative;
+
+  background-image:
+    linear-gradient(
+      rgba(0,0,0,0.75),
+      rgba(0,0,0,0.85)
+    ),
+    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.premium-content {
+  width: 100%;
+  max-width: 900px;
+  padding: 30px;
+  text-align: center;
+}
+
+.premium-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+.premium-title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    #f59e0b,
+    #facc15
+  );
+  margin: 12px auto 0;
+  border-radius: 10px;
+}
+
+@keyframes glow {
+  from {
+    text-shadow:
+      0 0 10px gold,
+      0 0 20px gold;
+  }
+
+  to {
+    text-shadow:
+      0 0 20px gold,
+      0 0 40px gold,
+      0 0 60px gold;
+  }
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.premium-card {
+  background: rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255,255,255,0.2);
+
+  border-radius: 25px;
+
+  padding: 30px;
+
+  margin-bottom: 25px;
+
+  color: white;
+
+  transition: all 0.4s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-8px) scale(1.02);
+
+  box-shadow:
+    0 15px 40px rgba(255,215,0,0.25);
+}
+
+.glass {
+  backdrop-filter: blur(18px);
+}
+
+.premium-highlight {
+  background: linear-gradient(
+    135deg,
+    #f59e0b,
+    #fbbf24
+  );
+
+  color: black;
+  font-weight: bold;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 25px;
+}
+
+.feature-list li {
+  padding: 15px;
+  font-size: 18px;
+
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+
+  transition: all 0.3s ease;
+}
+
+.feature-list li:hover {
+  padding-left: 20px;
+
+  color: gold;
+
+  transform: scale(1.03);
+}
+
+.missing li:hover {
+  color: #ff4d4d;
+}
+
+/* =========================
+   LOCKED CARD
+========================= */
+
+.danger {
+  border: 2px solid #ef4444;
+}
+
+/* =========================
+   SUBSCRIBE BUTTON
+========================= */
+
+.subscribe-btn {
+  margin-top: 20px;
+
+  padding: 15px 30px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #f59e0b,
+    #fbbf24
+  );
+
+  color: black;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.subscribe-btn:hover {
+  transform: scale(1.08);
+
+  box-shadow:
+    0 0 25px gold;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .premium-title {
+    font-size: 2.5rem;
+  }
+
+  .premium-card {
+    padding: 20px;
+  }
+}
+
+/* =========================
+   PREMIUM HEADER
+========================= */
+
+.premium-header {
+  text-align: center;
+  margin-bottom: 50px;
+  z-index: 2;
+  position: relative;
+}
+
+.premium-badge {
+  display: inline-block;
+  padding: 8px 18px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #ffd700;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  border-radius: 30px;
+  margin-bottom: 18px;
+  backdrop-filter: blur(8px);
+}
+
+.premium-header h1 {
+  font-size: 3.4rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+
+.premium-header p {
+  max-width: 650px;
+  margin: auto;
+  color: rgba(255,255,255,0.75);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.premium-note{
+  margin-top:20px;
+  color:#cbd5e1;
+  line-height:1.7;
+  font-size:0.95rem;
+}
+
+.feature-list.missing li{
+  color:#e2e8f0;
+  margin-bottom:12px;
+  transition:0.3s;
+}
+
+.feature-list.missing li:hover{
+  transform:translateX(8px);
+  color:#facc15;
+}
