@@ -10,12 +10,11 @@ const [subscriptions, setSubscriptions] = useState([]);
 
 const token = localStorage.getItem("token");
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
 useEffect(() => {
-  fetchStats();
-  fetchUsers();
-  fetchSubscriptions();
-}, []);
+    fetchStats();
+    fetchUsers();
+    fetchSubscriptions();
+  }, [fetchStats, fetchUsers, fetchSubscriptions]);
 
 const fetchStats = async () => {
 try {
@@ -233,14 +232,6 @@ return (
 
   </div>
 );
-};
-
-const cardStyle = {
-padding: "15px",
-background: "#f2f2f2",
-borderRadius: "8px",
-minWidth: "150px",
-textAlign: "center",
 };
 
 export default AdminDashboard;
