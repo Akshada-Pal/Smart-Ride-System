@@ -52,8 +52,8 @@ router.post("/create-checkout-session", protect, async (req, res) => {
         plan: plan,
       },
 
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/cancel",
+      success_url: "https://smart-ride-system.vercel.app//success",
+      cancel_url: "https://smart-ride-system.vercel.app//cancel",
     });
 
     return res.json({ url: session.url });
