@@ -17,143 +17,156 @@ const Cars = () => {
 
           {[
             {
-              name: "BMW M4",
-              image: "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg",
-              price: "₹12,000/day",
-              seats: 4,
-              fuel: "Petrol",
-              mileage: "15 kmpl",
-              type: "Coupe",
-            },
-            {
-              name: "Audi A6",
-              image: "https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg",
-              price: "₹10,500/day",
-              seats: 5,
-              fuel: "Petrol",
-              mileage: "18 kmpl",
-              type: "Sedan",
-            },
-            {
-              name: "Mercedes G-Wagon",
-              image: "https://th.bing.com/th/id/OIP.uOXw5-g3bKNc3m0zQOe8PAHaEK",
-              price: "₹18,000/day",
-              seats: 7,
-              fuel: "Diesel",
-              mileage: "12 kmpl",
-              type: "SUV",
-            },
-            {
-              name: "Porsche 911",
-              image: "https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg",
-              price: "₹22,000/day",
-              seats: 2,
-              fuel: "Petrol",
-              mileage: "10 kmpl",
-              type: "Sports",
-            },
-            {
-              name: "Lamborghini Huracan",
-              image: "https://th.bing.com/th/id/OIP.dIcLXreSEqo89qB5lXE9GAHaE8",
-              price: "₹35,000/day",
-              seats: 2,
-              fuel: "Petrol",
-              mileage: "8 kmpl",
-              type: "Supercar",
-            },
-            {
-              name: "Range Rover Sport",
-              image: "https://images.pexels.com/photos/1007410/pexels-photo-1007410.jpeg",
-              price: "₹16,000/day",
-              seats: 5,
-              fuel: "Diesel",
-              mileage: "14 kmpl",
-              type: "SUV",
-            },
-            {
-              name: "Tesla Model S",
-              image: "https://th.bing.com/th/id/OIP.mJjf5jCRa4v0OlfSczJvUQHaFj",
-              price: "₹20,000/day",
-              seats: 5,
-              fuel: "Electric",
-              mileage: "650 km",
-              type: "Luxury EV",
-            },
-            {
-              name: "Ferrari F8",
-              image: "https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg",
-              price: "₹40,000/day",
-              seats: 2,
-              fuel: "Petrol",
-              mileage: "7 kmpl",
-              type: "Supercar",
-            },
+name: "Office Commute Plan",
+image: "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg",
+price: "₹2,999/month",
+seats: "Daily",
+fuel: "GPS",
+mileage: "Support",
+type: "Starter Plan",
+},
+{
+name: "Executive Plan",
+image: "https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg",
+price: "₹4,999/month",
+seats: "Priority",
+fuel: "Premium",
+mileage: "24x7",
+type: "Business",
+},
+{
+name: "Family Plan",
+image: "https://th.bing.com/th/id/OIP.uOXw5-g3bKNc3m0zQOe8PAHaEK",
+price: "₹5,999/month",
+seats: "Family",
+fuel: "Safe",
+mileage: "Routes",
+type: "Family",
+},
+{
+name: "VIP Premium Plan",
+image: "https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg",
+price: "₹7,999/month",
+seats: "Luxury",
+fuel: "VIP",
+mileage: "Benefits",
+type: "Premium",
+},
+{
+name: "Student Pass",
+image: "https://th.bing.com/th/id/OIP.dIcLXreSEqo89qB5lXE9GAHaE8",
+price: "₹1,999/month",
+seats: "College",
+fuel: "Pickup",
+mileage: "Drop",
+type: "Student",
+},
+{
+name: "Corporate Plus",
+image: "https://images.pexels.com/photos/1007410/pexels-photo-1007410.jpeg",
+price: "₹8,999/month",
+seats: "Office",
+fuel: "Priority",
+mileage: "Support",
+type: "Corporate",
+},
+{
+name: "Eco Ride Plan",
+image: "https://th.bing.com/th/id/OIP.mJjf5jCRa4v0OlfSczJvUQHaFj",
+price: "₹3,499/month",
+seats: "Eco",
+fuel: "Green",
+mileage: "Travel",
+type: "Sustainable",
+},
+{
+name: "Elite Membership",
+image: "https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg",
+price: "₹9,999/month",
+seats: "VIP",
+fuel: "Luxury",
+mileage: "Service",
+type: "Elite",
+},
+{
+name: "Gold Membership",
+image: "https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg",
+price: "₹11,999/month",
+seats: "Premium",
+fuel: "Luxury",
+mileage: "Travel",
+type: "Gold",
+},
+{
+name: "Platinum Membership",
+image: "https://images.pexels.com/photos/337909/pexels-photo-337909.jpeg",
+price: "₹14,999/month",
+seats: "Unlimited",
+fuel: "Priority",
+mileage: "Support",
+type: "Platinum",
+},
+{
+name: "Diamond Membership",
+image: "https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg",
+price: "₹19,999/month",
+seats: "VIP",
+fuel: "Exclusive",
+mileage: "Benefits",
+type: "Diamond",
+},
+{
+name: "Smart Ride Ultimate",
+image: "https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg",
+price: "₹24,999/month",
+seats: "All",
+fuel: "Premium",
+mileage: "Features",
+type: "Ultimate",
+}
+,
 
-            /* ================= LAST 4 CARS (RESTORED) ================= */
+          ].map((plan, index) => (
+  <div className="car-card" key={index}>
 
-            {
-              name: "Rolls-Royce Ghost",
-              image: "https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg",
-              price: "₹45,000/day",
-              seats: 5,
-              fuel: "Petrol",
-              mileage: "8 kmpl",
-              type: "Ultra Luxury",
-            },
-            {
-              name: "Bentley Continental GT",
-              image: "https://images.pexels.com/photos/337909/pexels-photo-337909.jpeg",
-              price: "₹38,000/day",
-              seats: 4,
-              fuel: "Petrol",
-              mileage: "9 kmpl",
-              type: "Grand Tourer",
-            },
-            {
-              name: "McLaren 720S",
-              image: "https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg",
-              price: "₹42,000/day",
-              seats: 2,
-              fuel: "Petrol",
-              mileage: "7 kmpl",
-              type: "Supercar",
-            },
-            {
-              name: "Maserati Levante",
-              image: "https://images.pexels.com/photos/1592384/pexels-photo-1592384.jpeg",
-              price: "₹19,000/day",
-              seats: 5,
-              fuel: "Petrol",
-              mileage: "13 kmpl",
-              type: "Luxury SUV",
-            },
+    {/* STATUS BADGE */}
+    <span className="status">
+      {index === 0 ? "Popular" : "Premium"}
+    </span>
 
-          ].map((car, index) => (
-            <div className="car-card" key={index}>
+    <img src={plan.image} alt={plan.name} />
 
-              <span className="status">Available</span>
+    {/* PRICE TAG → NOW SUBSCRIPTION STYLE */}
+    <span className="price-tag">{plan.price}</span>
 
-              <img src={car.image} alt={car.name} />
+    <div className="card-content">
 
-              <span className="price-tag">{car.price}</span>
+      {/* TITLE */}
+      <h3>{plan.name}</h3>
 
-              <div className="card-content">
-                <h3>{car.name}</h3>
-                <p className="car-type">{car.type}</p>
+      {/* TYPE → now becomes plan category */}
+      <p className="car-type">{plan.type}</p>
 
-                <div className="car-specs">
-                  <div>👥 {car.seats} Seats</div>
-                  <div>⛽ {car.fuel}</div>
-                  <div>🚗 {car.mileage}</div>
-                </div>
+      {/* SPECS → converted into Smart Ride features */}
+      <div className="car-specs">
 
-                <button className="book-btn">
-                  Book Now →
-                </button>
-              </div>
+        <div>📍 {plan.seats} Service</div>
 
-            </div>
-          ))}
+        <div>🛰 {plan.fuel}</div>
+
+        <div>⏱ {plan.mileage}</div>
+
+      </div>
+
+      {/* BUTTON */}
+      <button className="book-btn">
+        Subscribe Now →
+      </button>
+
+    </div>
+
+  </div>
+))}
         </div>
       </div>
 

@@ -53,29 +53,29 @@ const Home = () => {
       {
         name: "BMW M4",
         image: "https://th.bing.com/th/id/OIP.botNcIHOtgqQiNtViqwVrwHaEo?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
-        price: "₹12,000/day",
-        seats: 4,
-        fuel: "Petrol",
-        mileage: "15 kmpl",
-        type: "Coupe",
+        price: "₹2,999/month",
+    seats: "Office Commute",
+    fuel: "GPS Tracking",
+    mileage: "Daily Pickup",
+    type: "Smart Ride Plan",
       },
       {
         name: "Audi A6",
         image: "https://images.pexels.com/photos/358070/pexels-photo-358070.jpeg",
-        price: "₹10,500/day",
-        seats: 5,
-        fuel: "Petrol",
-        mileage: "18 kmpl",
-        type: "Sedan",
+         price: "₹4,999/month",
+    seats: "Executive Service",
+    fuel: "Priority Support",
+    mileage: "Fast Route Access",
+    type: "Premium Plan",
       },
       {
         name: "Mercedes G-Wagon",
         image: "https://th.bing.com/th/id/OIP.mJjf5jCRa4v0OlfSczJvUQHaFj?w=237&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
-        price: "₹18,000/day",
-        seats: 7,
-        fuel: "Diesel",
-        mileage: "12 kmpl",
-        type: "SUV",
+        price: "₹6,999/month",
+    seats: "Family Plan",
+    fuel: "Safe Ride",
+    mileage: "Comfort Travel",
+    type: "Family Subscription",
       },
     ].map((car, index) => (
       <div className="fleet-card" key={index}>
@@ -102,7 +102,7 @@ const Home = () => {
           </div>
 
           <button className="fleet-btn">
-            Book Now
+            Subscribe Now →
           </button>
 
         </div>
