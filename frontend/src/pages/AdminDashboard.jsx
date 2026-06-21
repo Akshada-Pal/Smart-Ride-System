@@ -4,8 +4,29 @@ import "../styles/adminDashboard.css";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [subscriptions, setSubscriptions] = useState([]);
+ const [users, setUsers] = useState([
+  {
+    _id: "1",
+    name: "Akshada Pal",
+    email: "akshada@gmail.com",
+    role: "admin",
+  },
+  {
+    _id: "2",
+    name: "Riya Sharma",
+    email: "riya@gmail.com",
+    role: "user",
+  },
+]);
+ const [subscriptions, setSubscriptions] = useState([
+  {
+    _id: "1",
+    userId: { name: "Riya Sharma" },
+    planType: "Premium",
+    status: "active",
+    expiryDate: new Date(),
+  },
+]);
 
   const token = localStorage.getItem("token");
 
