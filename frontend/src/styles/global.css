@@ -2871,3 +2871,71 @@ button:hover {
   transform:translateX(8px);
   color:#facc15;
 }
+
+@media (max-width: 768px) {
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 12px 20px;
+  }
+
+  .logo {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .menu {
+    display: block;
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  .nav-links,
+  .nav-right {
+    display: none;
+  }
+
+  .nav-links.active,
+  .nav-right.active {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  .nav-links li {
+    padding: 12px 0;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .nav-right {
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .auth-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 10px;
+  }
+
+  .login-btn,
+  .register-btn,
+  .logout-btn {
+    width: 100%;
+  }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .menu {
+    display: none;
+  }
+}
