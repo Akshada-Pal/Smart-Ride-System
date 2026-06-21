@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getUser, logout } from "../utils/auth";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/global.css";
@@ -8,6 +8,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+  setMenuOpen(false);
+}, [location.pathname]);
 
   const isActive = (path) => location.pathname === path;
 

@@ -69,7 +69,9 @@ const AdminDashboard = () => {
         }
       );
 
-      setUsers(res.data?.users || []);
+      if (res.data?.users?.length > 0) {
+  setUsers(res.data.users);
+}
     } catch (err) {
       console.log("Users Error:", err);
       setUsers([]);
@@ -85,7 +87,9 @@ const AdminDashboard = () => {
         }
       );
 
-      setSubscriptions(res.data?.subscriptions || []);
+      if (res.data?.subscriptions?.length > 0) {
+  setSubscriptions(res.data.subscriptions);
+}
     } catch (err) {
       console.log("Subscriptions Error:", err);
       setSubscriptions([]);
