@@ -17,11 +17,24 @@ const AdminDashboard = () => {
     email: "riya@gmail.com",
     role: "user",
   },
+   {
+    _id: "3",
+    name: "Aradhya Pal",
+    email: "aradhya@gmail.com",
+    role: "admin",
+  },
 ]);
  const [subscriptions, setSubscriptions] = useState([
   {
     _id: "1",
-    userId: { name: "Riya Sharma" },
+    userId: { name: "Akshada Pal" },
+    planType: "Premium",
+    status: "active",
+    expiryDate: new Date(),
+  },
+  {
+    _id: "1",
+    userId: { name: "Aradhya Pal" },
     planType: "Premium",
     status: "active",
     expiryDate: new Date(),
