@@ -31,12 +31,9 @@ app.use("/api/webhook", webhookRoutes);
 // 🔥 STEP 2: FIXED CORS (IMPORTANT FOR DEPLOYMENT)
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:5173",
-      "https://smart-ride-system.vercel.app"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      return callback(null, true); // allow all origins (FIX FOR NOW)
+    },
     credentials: true
   })
 );
